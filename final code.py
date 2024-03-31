@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jan 26 21:02:49 2023
-
-@author: Sendil
-"""
+"""Fill in the password for the database access"""
 
 from tkinter import *
 from tkinter import messagebox as mb
@@ -70,7 +65,7 @@ def sign_up_main():
     pd = entry5.get()
     t=datetime.now() 
     current_time=t.strftime("%Y/%m/%d %H:%M:%S")
-    db1=db.connect(host='localhost',user='root',passwd='mydat1974SQL',database='online_shop')
+    db1=db.connect(host='localhost',user='root',passwd='',database='online_shop')
     cur=db1.cursor()
     cur.execute(''' CREATE TABLE IF NOT EXISTS USER_TABLE
           (user_id smallint(5) Primary Key Not Null Unique Auto_Increment,
@@ -136,7 +131,7 @@ def user_login_main():
     global name,user_name
     name=entry1.get()
     pwd=entry2.get()
-    db1=db.connect(host='localhost',user='root',passwd='mydat1974SQL',database='online_shop')
+    db1=db.connect(host='localhost',user='root',passwd='',database='online_shop')
     cur=db1.cursor()
     cur.execute('''SELECT user_name, password FROM user_table''')
     lst=cur.fetchall()
@@ -156,7 +151,7 @@ def user_login_main():
             
 def profile():
     root.title('Profile')
-    db1=db.connect(host='localhost',user='root',passwd='mydat1974SQL',database='online_shop')
+    db1=db.connect(host='localhost',user='root',passwd='',database='online_shop')
     cur=db1.cursor()
     if check==0:
         cur.execute('''select user_name, name, phone_no, created_at from user_table where user_table.user_name='{}' '''.format(name))
@@ -304,7 +299,7 @@ def productlist():
     frame.place(relwidth=1, relheight=1)
     label = Label(frame, text='Product List', bg='#C3ACD0')
     label.place(relwidth=0.75, relheight=0.1, relx=0.5, rely=0.1, anchor='n')
-    db1=db.connect(host='localhost',user='root',passwd='mydat1974SQL',database='online_shop')
+    db1=db.connect(host='localhost',user='root',passwd='',database='online_shop')
     cur = db1.cursor()
     cur.execute("select product_name from product_table where category_name='{}'".format(pro_name))
     d = cur.fetchall()
@@ -329,7 +324,7 @@ def display_prod_details():
         p = d[listbox.curselection()[0]][0]
     except IndexError:
         productlist()
-    db1=db.connect(host='localhost',user='root',passwd='mydat1974SQL',database='online_shop')
+    db1=db.connect(host='localhost',user='root',passwd='',database='online_shop')
     cur = db1.cursor()
     cur.execute("select product_name,price,disc_percentage,category_name from product_table where product_name='{}'".format(p))
     d = cur.fetchall()
@@ -372,7 +367,7 @@ def display_prod_details():
     qty_box.place(relheight=0.15,relwidth=0.2,relx=0.5,rely=0.8)
     def add_to_cart():
         global q,d,d1
-        db1=db.connect(host='localhost',user='root',passwd='mydat1974SQL',database='online_shop')
+        db1=db.connect(host='localhost',user='root',passwd='',database='online_shop')
         cur=db1.cursor()
         cur.execute(''' create table if not exists cart_table
               (cart_id smallint PRIMARY KEY NOT NULL UNIQUE AUTO_INCREMENT,
@@ -408,7 +403,7 @@ def display_prod_details():
         
 
 def shopping_cart():
-    db1=db.connect(host='localhost',user='root',passwd='mydat1974SQL',database='online_shop')
+    db1=db.connect(host='localhost',user='root',passwd='',database='online_shop')
     cur=db1.cursor()
     cur.execute(''' create table if not exists cart_table
           (cart_id smallint PRIMARY KEY NOT NULL UNIQUE AUTO_INCREMENT,
@@ -432,7 +427,7 @@ def display_cart():
     frame.place(relwidth=1, relheight=1)
     label = Label(frame, text='Shopping Cart', bg='#C3ACD0')
     label.place(relwidth=0.75, relheight=0.1, relx=0.5, rely=0.1, anchor='n')
-    db1=db.connect(host='localhost',user='root',passwd='mydat1974SQL',database='online_shop')
+    db1=db.connect(host='localhost',user='root',passwd='',database='online_shop')
     cur = db1.cursor()
     cur.execute("select product_name from cart_table")
     d = cur.fetchall()
@@ -448,7 +443,7 @@ def display_cart():
             p = d[lbox.curselection()[0]][0]
         except IndexError:
             display_cart()
-        db1=db.connect(host='localhost',user='root',passwd='mydat1974SQL',database='online_shop')
+        db1=db.connect(host='localhost',user='root',passwd='',database='online_shop')
         cur=db1.cursor()
         root.title('Shopping Cart')
         frame = Frame(root, bg='#6F1AB6')
@@ -484,7 +479,7 @@ def display_cart():
         label44 =Label(lower_frame, text=final_price1, bg='#9EA1D4', font=('calibre', 10, 'bold'))
         label44.place(relheight=0.1, relwidth=0.2, relx=0.6, rely=0.7, anchor='n')
         def display_cart_prod_remove():
-            db1=db.connect(host='localhost',user='root',passwd='mydat1974SQL',database='online_shop')
+            db1=db.connect(host='localhost',user='root',passwd='',database='online_shop')
             cur=db1.cursor()
             cur.execute('''delete from cart_table where product_name="{}"'''.format(name1))
             mb.showinfo('Item Removed',"Product has been removed from cart!")
@@ -507,7 +502,7 @@ def display_cart():
     
 def view_bill():
     global bill_amt
-    db1=db.connect(host='localhost',user='root',passwd='mydat1974SQL',database='online_shop')
+    db1=db.connect(host='localhost',user='root',passwd='',database='online_shop')
     cur=db1.cursor()
     root.title('Bill')
     frame = Frame(root, bg='#6F1AB6')
@@ -557,7 +552,7 @@ def view_bill():
         global d
         t=datetime.now() 
         t_chout=t.strftime("%Y/%m/%d %H:%M:%S")
-        db1=db.connect(host='localhost',user='root',passwd='mydat1974SQL',database='online_shop')
+        db1=db.connect(host='localhost',user='root',passwd='',database='online_shop')
         cur=db1.cursor()
         cur.execute('''select product_name from cart_table''')
         lst=cur.fetchall()
@@ -631,7 +626,7 @@ def admin_login_main():
     global name,check
     name=entry1.get()
     pwd=entry2.get()
-    db1=db.connect(host='localhost',user='root',passwd='mydat1974SQL',database='online_shop')
+    db1=db.connect(host='localhost',user='root',passwd='',database='online_shop')
     cur=db1.cursor()
     cur.execute('''SELECT user_name, password FROM admin_table''')
     lst=cur.fetchall()
@@ -696,7 +691,7 @@ def admin_menu():
     global ch1
     ch1=2
     def product_list_main():
-        db1 = db.connect(host='localhost', user='root', passwd='mydat1974SQL',database='online_shop')
+        db1 = db.connect(host='localhost', user='root', passwd='',database='online_shop')
         cur = db1.cursor()
         cur.execute (''' CREATE TABLE IF NOT EXISTS PRODUCT_TABLE
                     (product_id smallint(5) Primary Key Not Null Unique Auto_Increment,
@@ -743,7 +738,7 @@ def sales():
 
 def salebar():
     root.title('E-Shop')
-    db1=db.connect(host='localhost',user='root',passwd='mydat1974SQL',database='online_shop')
+    db1=db.connect(host='localhost',user='root',passwd='',database='online_shop')
     cur = db1.cursor()
     cur.execute("select product_name from product_table where category_name='{}'".format(pro_name))
     d = cur.fetchall()
@@ -784,7 +779,7 @@ def up_del_():
                 p = d[listbox.curselection()[0]][0]
             except IndexError:
                 up_del_()
-            db1 = db.connect(host='localhost', user='root', passwd='mydat1974SQL', 
+            db1 = db.connect(host='localhost', user='root', passwd='', 
             database='online_shop')
             c = db1.cursor()
             c.execute('''delete from product_table where product_name='{}' ;'''.format(p))
@@ -826,7 +821,7 @@ def up_del_():
             p = d[listbox.curselection()[0]][0]
         except IndexError:
             up_del_()
-        db1 = db.connect(host='localhost', user='root', passwd='mydat1974SQL',database='online_shop')
+        db1 = db.connect(host='localhost', user='root', passwd='',database='online_shop')
         c = db1.cursor()
         disc_amt = float(e4.get()) - (float(e4.get()) * float(e5.get()) / 100)
         sql = "update product_table set stock_qty={},price={},disc_percentage={},disc_amt={} where product_name='{}' ".format(e3.get(), e4.get(), e5.get(), disc_amt, p)
@@ -842,7 +837,7 @@ def up_del_():
     frame.place(relwidth=1, relheight=1)
     label = Label(frame, text='Product List', bg='#C3ACD0')
     label.place(relwidth=0.75, relheight=0.1, relx=0.5, rely=0.1, anchor='n')
-    db1=db.connect(host='localhost',user='root',passwd='mydat1974SQL',database='online_shop')
+    db1=db.connect(host='localhost',user='root',passwd='',database='online_shop')
     cur = db1.cursor()
     cur.execute("select product_name from product_table where category_name='{}'".format(pro_name))
     d = cur.fetchall()
@@ -871,7 +866,7 @@ def add_product():
     label1=Label(frame1,bg="#C3ACD0",text="Add Products").place(relx=0.31,rely=0.1,relheight=0.12,relwidth=0.35)
     low_frame=Frame(frame1,bg="#9EA1D4").place(relwidth=0.8,relheight=0.5,relx=0.1,rely=0.3)
     def store():
-        db1 = db.connect(host='localhost', user='root', passwd='mydat1974SQL', database='online_shop')
+        db1 = db.connect(host='localhost', user='root', passwd='', database='online_shop')
         cur = db1.cursor()
         disc_amt = float(entry5.get()) - (float(entry5.get()) * float(entry6.get()) / 100)
         cur.execute('''insert into product_table(product_name,category_name,stock_qty, price,disc_percentage, disc_amt)
@@ -903,10 +898,10 @@ def add_product():
     button1=Button(frame1,text='Submit',bg="#E5E0FF",command=store).place(rely=0.85,relx=0.6,relheight=0.1,relwidth=0.2)
     button1=Button(frame1,text='Back',bg="#E5E0FF",command=admin_menu).place(rely=0.85,relx=0.2,relheight=0.1,relwidth=0.2)    
     root.mainloop()
-        
-    
-    
+
 start_page()
+
+#code in mysql to create an admin table
 """CREATE TABLE IF NOT EXISTS ADMIN_TABLE
     -> (admin_id smallint(5) Primary Key Not Null Unique Auto_Increment,
     -> user_name varchar(25) Not Null Unique,
